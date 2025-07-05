@@ -14,6 +14,15 @@
 
 ---
 
+## 📸 Screenshots
+
+### 🏠 Home Page
+<img src="./src/assets/home page.png" alt="Home Page" width="700"/>
+
+### 🔍 Search Filter 
+<img src="./src/assets/search filter.png" alt="Create Task" width="700"/>
+
+
 ## 📌 Features
 
 - 🧠 Create, edit, and delete tasks with title, description, and deadline
@@ -37,6 +46,19 @@
 | Deployment     | Vercel                             |
 
 ---
+
+## 🛠️ Backend (Mock API)
+
+This project uses a local JSON server to simulate a real backend.
+
+- Data is stored at: `http://localhost:3001/tasks`
+- To run it locally:
+  ```bash
+  npm install -g json-server
+  json-server --watch db.json --port 3001
+
+---
+
 
 ## 🛠️ Local Setup Instructions
 
