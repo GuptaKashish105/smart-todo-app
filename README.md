@@ -1,12 +1,18 @@
 # 🚀 SmartTrack - A Smarter Todo Manager
 
-![Banner](https://img.shields.io/badge/Vite-Frontend-blueviolet?style=flat&logo=vite) ![Tailwind](https://img.shields.io/badge/TailwindCSS-Styles-blue?style=flat&logo=tailwindcss) ![Vercel](https://img.shields.io/badge/Deployed-Vercel-green?style=flat&logo=vercel)
+![Banner](https://img.shields.io/badge/Vite-Frontend-blueviolet?style=flat&logo=vite)
+![Tailwind](https://img.shields.io/badge/TailwindCSS-Styles-blue?style=flat&logo=tailwindcss)
+![Vercel](https://img.shields.io/badge/Deployed-Vercel-green?style=flat&logo=vercel)
+![MongoDB](https://img.shields.io/badge/Backend-MongoDB-darkgreen?style=flat&logo=mongodb)
+![Serverless](https://img.shields.io/badge/API-Vercel%20Serverless-black?style=flat&logo=vercel)
 
-**SmartTrack** is a modern and intuitive task management web application built using React, Vite, and Tailwind CSS. It allows users to add, manage, and track tasks in real-time across different categories — **Ongoing**, **Success**, and **History** — based on completion status and deadlines.
+**SmartTrack** is a full-stack task management web application built using React, Vite, Tailwind CSS, MongoDB, and Vercel Serverless Functions. It allows users to add, update, complete, and manage tasks in real-time, categorized into **Ongoing**, **Success**, and **History** based on deadline and completion status.
+
+---
 
 ## 🔗 Live Demo
 
-👉 [View Deployed App on Vercel](https://smart-todo-app-zeta.vercel.app/)
+👉 [View Deployed App on Vercel](https://smart-todo-app-fullstack.vercel.app/)
 
 ## 📂 GitHub Repo
 
@@ -22,47 +28,54 @@
 ### 🔍 Search Filter 
 <img src="./src/assets/search filter.png" alt="Create Task" width="700"/>
 
+---
 
 ## 📌 Features
 
 - 🧠 Create, edit, and delete tasks with title, description, and deadline
-- ⏱️ Smart bucketing: automatically groups tasks based on deadline and status
+- ⏱️ Smart bucketing: auto-grouping based on deadline + completion
 - ✅ Mark tasks as complete or move to history
-- 🔍 Search bar with live filtering
-- ⚡ Beautiful transitions with `@tailwindcss/animate`
-- 🖼️ Clean and responsive UI with gradient backgrounds
-- 💼 Resume download + GitHub/LinkedIn links included
+- 🔍 Live search filter
+- ⚡ Smooth transitions with `@tailwindcss/animate`
+- 💾 Persistent storage with MongoDB Atlas
+- 🔌 Full-stack implementation with Vercel Serverless backend
+- 📁 Resume download + GitHub/LinkedIn integration
 
 ---
 
 ## ⚙️ Tech Stack & Tools
 
-| Purpose        | Tech Stack                         |
-| -------------- | ---------------------------------- |
-| Frontend       | React + Vite                       |
-| Styling        | TailwindCSS, Animations            |
-| Icons          | react-icons (Lucide, GitHub, etc.) |
-| API Handling   | REST (mocked with `json-server`)   |
-| Deployment     | Vercel                             |
+| Layer         | Technology                        |
+|---------------|------------------------------------|
+| Frontend      | React + Vite                       |
+| Styling       | Tailwind CSS + `@tailwindcss/animate` |
+| Icons         | react-icons                        |
+| Backend/API   | Vercel Serverless Functions (`/api/tasks.js`) |
+| Database      | MongoDB Atlas                      |
+| Deployment    | Vercel (Frontend + API together)   |
 
 ---
 
-## 🛠️ Backend (Mock API)
+## 🔧 Backend API (MongoDB)
 
-This project uses a local JSON server to simulate a real backend.
+All tasks are stored in a **MongoDB Atlas** database and accessed using **Vercel Serverless Functions**.
 
-- Data is stored at: `http://localhost:3001/tasks`
-- To run it locally:
-  ```bash
-  npm install -g json-server
-  json-server --watch db.json --port 3001
+### 🔌 Endpoints:
+
+| Method | Endpoint       | Description                   |
+|--------|----------------|-------------------------------|
+| GET    | `/api/tasks`   | Fetch all tasks               |
+| POST   | `/api/tasks`   | Create a new task             |
+| PUT    | `/api/tasks/:id` | Update a task (title, status, etc.) |
+| DELETE | `/api/tasks/:id` | Delete a task                |
+
+> ✅ Status (`ongoing`, `success`, `failure`) is derived in the frontend using `isCompleted` and `deadline`.
 
 ---
-
 
 ## 🛠️ Local Setup Instructions
 
-> Ensure you have **Node.js** installed (v16+)
+> Make sure you have **Node.js (v16+)** and a MongoDB Atlas URI.
 
 ```bash
 # 1. Clone the repo
@@ -72,8 +85,10 @@ cd smart-todo-app
 # 2. Install dependencies
 npm install
 
-# 3. Start the mock backend (json-server must be installed globally)
-npx json-server --watch db.json --port 3001
+# 3. Create environment variable
+touch .env.local
+# Add your MongoDB URI
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/?retryWrites=true&w=majority
 
-# 4. Start the frontend
-npm run dev
+# 4. Run the app locally (Vite + Serverless API)
+vercel dev
