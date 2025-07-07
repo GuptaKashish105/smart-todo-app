@@ -13,7 +13,11 @@ function App() {
   const loadTasks = async () => {
     setLoading(true);
     const allTasks = await fetchTasks();
-    setTasks(allTasks);
+    const normalized = allTasks.map((task) => ({
+      ...task,
+      id: task._id,
+    }));
+    setTasks(normalized);
     setLoading(false);
   };
 

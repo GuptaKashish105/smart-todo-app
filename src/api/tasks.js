@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3001/tasks";
+const API_URL = "/api/tasks";
 
 export const fetchTasks = async () => {
   const res = await fetch(API_URL);
@@ -21,17 +21,23 @@ export const createTask = async (task) => {
 };
 
 export const updateTask = async (id, updates) => {
-  const res = await fetch(`${API_URL}/${id}`, {
+  const { id: _removedId, _id, ...safeUpdates } = updates;
+
+  const res = await fetch("/api/tasks", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      ...updates,
-      updatedAt: new Date()?.toISOString(),
+      id,
+      ...safeUpdates,
+      updatedAt: new Date().toISOString(),
     }),
   });
+
   return await res.json();
 };
 
-export const deleteTask = async (id) => {
-  await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+export const deleteTask = async (_id) => {
+  await fetch(`/api/tasks?id=${_id}`, {
+    method: "DELETE",
+  });
 };
